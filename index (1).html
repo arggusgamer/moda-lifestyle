@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rancho Texas</title>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#efe3cc;--surface:#fbf4e4;--text:#2a1a0f;--muted:#7a6350;--line:#d6c29f;--accent:#5a3a22;--btntext:#fff7e8;--navy:#1b2a49;--red:#a62f2a;--gold:#c8923b;--leather:#2e1c10;--head:"Alfa Slab One",Rockwell,"Roboto Slab",Georgia,serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#191009;--surface:#26180e;--text:#f1e5cd;--muted:#b8a58a;--line:#47321f;--accent:#c8923b;--btntext:#1a1008;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Lora,Georgia,serif}
+[hidden]{display:none!important}
+button{font:inherit;cursor:pointer}
+header.top{background:var(--leather);color:#f1e5cd;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:4px dashed var(--gold)}
+.logo{font-family:var(--head);font-size:1.3rem}
+.ghost{background:transparent;color:#f1e5cd;border:1.5px solid var(--gold);border-radius:999px;padding:6px 16px}
+.hero{background:var(--navy);color:#f6ead2;padding:48px 18px;text-align:center}
+.stitch{max-width:780px;margin:auto;border:2px dashed var(--gold);border-radius:14px;padding:38px 22px}
+.hero h1{font-family:var(--head);font-weight:400;font-size:clamp(1.9rem,6.5vw,3.3rem);line-height:1.12;margin:0 0 12px;text-shadow:3px 3px 0 var(--red)}
+.hero p{margin:0 auto 22px;max-width:46ch;opacity:.92}
+.cta{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:12px 28px;border-radius:6px;font-weight:600}
+main{max-width:1100px;margin:auto;padding:28px 18px 48px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:22px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--accent);background:transparent;color:var(--text);padding:6px 16px;border-radius:999px}
+.chip.on{background:var(--accent);color:var(--btntext)}
+.bar input,.bar select{padding:8px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);font:inherit}
+#busca{flex:1;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.card.sold .art{filter:grayscale(.85);opacity:.7}
+.art{position:relative;aspect-ratio:1/1;background:var(--leather)}
+.art img{width:100%;height:100%;object-fit:cover;display:block}
+.ph{height:100%;display:grid;place-content:center;text-align:center;color:#ecd9b0;background:repeating-linear-gradient(45deg,#5a3a22 0 12px,#4c301c 12px 24px)}
+.ph span{font-size:2.4rem;color:var(--gold);line-height:1}
+.ph b{font-family:var(--head);font-weight:400;font-size:1.3rem}
+.tags{position:absolute;top:8px;left:8px;display:flex;gap:6px;flex-wrap:wrap}
+.t{font-style:normal;font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:999px;color:#fff}
+.t.gold{background:#a56f17}.t.red{background:var(--red)}.t.gray{background:#555}
+.info{padding:14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.info small{color:var(--muted)}.info small b{color:var(--text);margin-right:6px}
+.info h3{margin:0;font-size:1.05rem;line-height:1.3}
+.price{margin:2px 0}.price b{font-size:1.2rem}.price s{color:var(--muted);margin-right:8px}
+.sz{margin:0 0 10px;color:var(--muted);font-size:.9rem}
+.wa{margin-top:auto;display:block;text-align:center;text-decoration:none;background:#1d7447;color:#fff;border:0;border-radius:8px;padding:10px;font-weight:600}
+.wa:disabled{background:#85796c;cursor:not-allowed}
+.adm{display:flex;gap:8px;margin-top:8px}
+.adm button{flex:1;padding:6px;border-radius:6px;border:1.5px solid var(--line);background:transparent;color:var(--text)}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+.more{text-align:center;margin-top:24px}
+#adminbar{background:var(--navy);color:#f6ead2;padding:10px 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+#adminbar span{margin-right:auto;font-weight:600}
+.btn{background:var(--accent);color:var(--btntext);border:0;border-radius:8px;padding:9px 18px;font-weight:600}
+.btn.alt{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+#adminbar .btn{background:var(--gold);color:#1a1008}
+dialog{border:2px solid var(--gold);border-radius:14px;background:var(--surface);color:var(--text);padding:22px;width:min(460px,92vw)}
+dialog::backdrop{background:rgba(20,10,4,.65)}
+dialog h2{font-family:var(--head);font-weight:400;font-size:1.35rem;margin:0 0 6px}
+dialog label{display:block;font-size:.9rem;margin:10px 0 3px}
+dialog input:not([type=checkbox]):not([type=file]),dialog select{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit}
+.row{display:flex;gap:10px}.row>div{flex:1}
+.chk{display:flex;gap:18px;margin:12px 0 0}
+.chk label,.prev label{display:flex;gap:6px;align-items:center;margin:0}
+.prev{display:flex;gap:12px;align-items:center;margin-top:8px}
+.prev img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.acts{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.err{color:var(--red);min-height:1.3em;margin:8px 0 0}
+footer{text-align:center;color:var(--muted);padding:22px 18px;border-top:4px dashed var(--line);font-size:.9rem}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="top"><div class="logo">★ Rancho Texas</div><button class="ghost" id="btnAdmin">Área do administrador</button></header>
+<div id="adminbar" hidden><span>Modo administrador</span><button class="btn" id="btnNew">Novo produto</button><small id="msg"></small></div>
+<section class="hero"><div class="stitch">
+  <h1>Estilo western de verdade</h1>
+  <p>Botas Durango, camisas Levi’s e TXC. Escolha seu modelo e chame a gente no WhatsApp.</p>
+  <a class="cta" href="#catalogo">Ver catálogo</a>
+</div></section>
+<main id="catalogo">
+  <div class="bar"><input id="busca" type="search" placeholder="Buscar produto pelo nome" aria-label="Buscar produto"><select id="fcat" aria-label="Categoria"></select></div>
+  <div class="bar"><div class="chips" id="chips"></div></div>
+  <div class="grid" id="grid"></div>
+  <div class="more"><button class="btn alt" id="mais" hidden>Ver mais produtos</button></div>
+</main>
+<footer>Rancho Texas</footer>
+
+<dialog id="login">
+  <h2>Entrar como administrador</h2>
+  <form id="lf">
+    <label for="em">E-mail</label><input id="em" name="em" type="email" autocomplete="username" required>
+    <label for="se">Senha</label><input id="se" name="se" type="password" autocomplete="current-password" required>
+    <p class="err" id="lerr"></p>
+    <div class="acts"><button type="button" class="btn alt" onclick="this.closest('dialog').close()">Cancelar</button><button class="btn">Entrar</button></div>
+  </form>
+</dialog>
+
+<dialog id="fd">
+  <h2 id="ft">Novo produto</h2>
+  <form id="pf">
+    <label for="nome">Nome</label><input id="nome" name="nome" required>
+    <div class="row">
+      <div><label for="marca">Marca</label><input id="marca" name="marca" list="marcas" required></div>
+      <div><label for="cat">Categoria</label><input id="cat" name="cat" list="cats" required></div>
+    </div>
+    <datalist id="marcas"></datalist><datalist id="cats"></datalist>
+    <div class="row">
+      <div><label for="preco">Preço (R$)</label><input id="preco" name="preco" type="number" min="0" step="0.01" required></div>
+      <div><label for="promo">Preço promocional</label><input id="promo" name="promo" type="number" min="0" step="0.01"></div>
+    </div>
+    <label for="tam">Tamanhos</label><input id="tam" name="tam" placeholder="Ex.: 38 ao 44 ou P, M, G">
+    <label for="img">Foto do produto</label><input id="img" name="img" type="file" accept="image/*">
+    <div class="prev" id="prev" hidden><img id="pimg" alt="Foto atual"><label><input type="checkbox" name="rmimg"> Remover foto atual</label></div>
+    <div class="chk"><label><input type="checkbox" name="dest"> Destaque</label><label><input type="checkbox" name="esg"> Esgotado</label></div>
+    <p class="err" id="ferr"></p>
+    <div class="acts"><button type="button" class="btn alt" onclick="this.closest('dialog').close()">Cancelar</button><button class="btn" id="salvar">Salvar produto</button></div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+// ===== CONFIGURAÇÃO (cole os dois valores do seu projeto Supabase) =====
+const SUPABASE_URL="https://imocumxukmpbrqkbbxkt.supabase.co";
+const SUPABASE_KEY="sb_publishable_v2MTusmUaWUZt6mb6GWRmw_304aTkpu";
+const WA="5564999962609"; // WhatsApp da loja: 55 + DDD + número, só dígitos
+// ======================================================================
+const PAGE=24,$=s=>document.querySelector(s);
+const ok=!SUPABASE_URL.startsWith("COLE");
+const sb=ok?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY):null;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const brl=n=>Number(n).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const wa=i=>"https://wa.me/"+WA+"?text="+encodeURIComponent("Olá! Tenho interesse em: "+i.nome+" ("+i.marca+")");
+let lista=[],total=0,pagina=0,marcas=[],cats=[],fMarca="",fCat="",busca="",admin=false,editing=null,pend=null,carregando=false,timer;
+
+function card(i){return `<article class="card${i.esgotado?" sold":""}">
+  <div class="art">${i.foto_url?`<img src="${esc(i.foto_url)}" alt="${esc(i.nome)}" loading="lazy">`:`<div class="ph"><span>★</span><b>${esc(i.marca)}</b></div>`}
+    <div class="tags">${i.destaque?'<em class="t gold">Destaque</em>':""}${i.preco_promo&&!i.esgotado?'<em class="t red">Promoção</em>':""}${i.esgotado?'<em class="t gray">Esgotado</em>':""}</div></div>
+  <div class="info"><small><b>${esc(i.marca)}</b>${esc(i.categoria)}</small><h3>${esc(i.nome)}</h3>
+    <p class="price">${i.preco_promo?`<s>${brl(i.preco)}</s><b>${brl(i.preco_promo)}</b>`:`<b>${brl(i.preco)}</b>`}</p>
+    <p class="sz">Tamanhos: ${esc(i.tamanhos||"consulte")}</p>
+    ${i.esgotado?'<button class="wa" disabled>Indisponível</button>':`<a class="wa" target="_blank" rel="noopener" href="${wa(i)}">Chamar no WhatsApp</a>`}
+    ${admin?`<div class="adm"><button data-e="${i.id}">Editar</button><button data-d="${i.id}">${pend===i.id?"Confirmar exclusão?":"Excluir"}</button></div>`:""}
+  </div></article>`}
+
+function render(){
+  $("#adminbar").hidden=!admin;
+  $("#btnAdmin").textContent=admin?"Sair":"Área do administrador";
+  $("#chips").innerHTML=["",...marcas].map(m=>`<button class="chip${m===fMarca?" on":""}" data-m="${esc(m)}">${esc(m||"Todas")}</button>`).join("");
+  $("#fcat").innerHTML=["",...cats].map(c=>`<option value="${esc(c)}"${c===fCat?" selected":""}>${esc(c||"Todas as categorias")}</option>`).join("");
+  $("#marcas").innerHTML=[...new Set(["Durango","Levi’s","TXC",...marcas])].map(m=>`<option>${esc(m)}</option>`).join("");
+  $("#cats").innerHTML=[...new Set(["Botas","Camisas","Chapéus","Cintos",...cats])].map(c=>`<option>${esc(c)}</option>`).join("");
+  const vazio=!ok?"Falta configurar a URL e a chave do Supabase no início do script.":carregando?"Carregando produtos…":(fMarca||fCat||busca)?"Nenhum produto encontrado nesta busca.":admin?"Seu catálogo está vazio. Clique em Novo produto para cadastrar o primeiro.":"Os produtos chegam em breve.";
+  $("#grid").innerHTML=lista.length?lista.map(card).join(""):`<p class="empty">${esc(vazio)}</p>`;
+  $("#mais").hidden=lista.length>=total;
+}
+
+async function carregarFiltros(){
+  const {data}=await sb.from("filtros").select("marca,categoria");
+  marcas=[...new Set((data||[]).map(x=>x.marca))].sort();
+  cats=[...new Set((data||[]).map(x=>x.categoria))].sort();
+}
+async function carregar(zerar){
+  if(!ok)return;
+  if(zerar){pagina=0;lista=[];total=0}
+  carregando=true;if(zerar)render();
+  let q=sb.from("produtos").select("*",{count:"exact"}).order("destaque",{ascending:false}).order("criado_em",{ascending:false}).range(pagina*PAGE,pagina*PAGE+PAGE-1);
+  if(fMarca)q=q.eq("marca",fMarca);
+  if(fCat)q=q.eq("categoria",fCat);
+  if(busca)q=q.ilike("nome","%"+busca.replace(/[%_,]/g," ")+"%");
+  const {data,count,error}=await q;
+  carregando=false;
+  if(error){$("#msg").textContent="";$("#grid").innerHTML='<p class="empty">Não foi possível carregar os produtos. Confira a configuração do Supabase.</p>';return}
+  lista=lista.concat(data);total=count||0;pagina++;render();
+}
+async function checarAdmin(){
+  const {data:{session}}=await sb.auth.getSession();
+  admin=!!session;
+  return admin;
+}
+async function apagarFoto(url){
+  const p=(url||"").split("/fotos/")[1];
+  if(p)await sb.storage.from("fotos").remove([decodeURIComponent(p)]);
+}
+function shrink(file){return new Promise(res=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);c.toBlob(b=>res(b),"image/jpeg",.82)};im.onerror=()=>res(null);im.src=r.result};r.onerror=()=>res(null);r.readAsDataURL(file)})}
+
+$("#chips").onclick=e=>{const b=e.target.closest("[data-m]");if(b){fMarca=b.dataset.m;carregar(true)}};
+$("#fcat").onchange=e=>{fCat=e.target.value;carregar(true)};
+$("#busca").oninput=e=>{clearTimeout(timer);timer=setTimeout(()=>{busca=e.target.value.trim();carregar(true)},300)};
+$("#mais").onclick=()=>carregar(false);
+$("#grid").onclick=async e=>{
+  const ed=e.target.closest("[data-e]"),de=e.target.closest("[data-d]");
+  if(ed)openForm(lista.find(x=>x.id===ed.dataset.e));
+  if(de){
+    const id=de.dataset.d;
+    if(pend!==id){pend=id;render();return}
+    const p=lista.find(x=>x.id===id);pend=null;
+    const {error}=await sb.from("produtos").delete().eq("id",id);
+    if(error){$("#msg").textContent="Não foi possível excluir.";render();return}
+    if(p&&p.foto_url)await apagarFoto(p.foto_url);
+    $("#msg").textContent="";await carregarFiltros();carregar(true);
+  }
+};
+$("#btnAdmin").onclick=async()=>{
+  if(!ok){$("#grid").scrollIntoView();return}
+  if(admin){await sb.auth.signOut();admin=false;pend=null;render()}
+  else{$("#lerr").textContent="";$("#login").showModal()}
+};
+$("#lf").onsubmit=async e=>{
+  e.preventDefault();$("#lerr").textContent="Entrando…";
+  const {error}=await sb.auth.signInWithPassword({email:$("#em").value.trim(),password:$("#se").value});
+  if(error){$("#lerr").textContent="E-mail ou senha incorretos.";return}
+  if(await checarAdmin()){e.target.reset();$("#login").close();render()}
+  else $("#lerr").textContent="Esta conta não tem permissão de administrador."
+};
+$("#btnNew").onclick=()=>openForm(null);
+
+function openForm(it){
+  editing=it||null;$("#ft").textContent=it?"Editar produto":"Novo produto";$("#ferr").textContent="";
+  const f=$("#pf");f.reset();
+  if(it){f.nome.value=it.nome;f.marca.value=it.marca;f.cat.value=it.categoria;f.preco.value=it.preco;f.promo.value=it.preco_promo||"";f.tam.value=it.tamanhos;f.dest.checked=it.destaque;f.esg.checked=it.esgotado}
+  $("#prev").hidden=!(it&&it.foto_url);if(it&&it.foto_url)$("#pimg").src=it.foto_url;
+  $("#fd").showModal();
+}
+$("#pf").onsubmit=async e=>{
+  e.preventDefault();const f=e.target,btn=$("#salvar");
+  btn.disabled=true;$("#ferr").textContent="Salvando…";
+  try{
+    let foto=editing?editing.foto_url:null;
+    if(f.rmimg.checked&&foto){await apagarFoto(foto);foto=null}
+    const file=f.img.files[0];
+    if(file){
+      const blob=await shrink(file);
+      if(!blob)throw new Error("Não foi possível ler essa imagem.");
+      const nome=crypto.randomUUID()+".jpg";
+      const up=await sb.storage.from("fotos").upload(nome,blob,{contentType:"image/jpeg"});
+      if(up.error)throw new Error("Falha ao enviar a foto.");
+      if(foto)await apagarFoto(foto);
+      foto=sb.storage.from("fotos").getPublicUrl(nome).data.publicUrl;
+    }
+    const preco=+f.preco.value||0,promo=+f.promo.value||0;
+    const o={nome:f.nome.value.trim(),marca:f.marca.value.trim(),categoria:f.cat.value.trim(),preco,preco_promo:promo&&promo<preco?promo:null,tamanhos:f.tam.value.trim(),destaque:f.dest.checked,esgotado:f.esg.checked,foto_url:foto};
+    const r=editing?await sb.from("produtos").update(o).eq("id",editing.id):await sb.from("produtos").insert(o);
+    if(r.error)throw new Error("Não foi possível salvar o produto.");
+    $("#fd").close();await carregarFiltros();carregar(true);
+  }catch(err){$("#ferr").textContent=err.message}
+  btn.disabled=false;
+};
+
+(async()=>{
+  render();
+  if(!ok)return;
+  await checarAdmin();
+  await carregarFiltros();
+  await carregar(true);
+})();
+</script>
+</body>
+</html>
